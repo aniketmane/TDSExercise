@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TDSExercise</string>
+    <string name="e_18"><![CDATA[e<18]]></string>
+    <string name="total">Total</string>
+    <string name="emergency">Emergency</string>
+    <string name="no_emergency">No Emergency</string>
+    <string name="_18_e_60"><![CDATA[18<e<60]]></string>
+    <string name="_50_e"><![CDATA[50<e]]></string>
+</resources>
