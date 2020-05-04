@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.tdsexercise.R
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initialiseViewModel()
-        // fetchEmployees()
         startTimer()
     }
 
@@ -41,18 +41,16 @@ class MainActivity : AppCompatActivity() {
         viewModel.getEmployees().observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
-
                     Status.SUCCESS -> {
                         Log.d("Response", it.data.toString());
                         resource.data?.let { it -> retrieveListCounts(it.data) }
                     }
                     Status.ERROR -> {
                         Log.d("Response", it.data.toString());
+                        Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
-                        Log.d("Response", it.data.toString());
-                        // progressBar.visibility = View.VISIBLE
-                        // recyclerView.visibility = View.GONE
+                        //show progress
                     }
                 }
             }
@@ -103,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("Test", "NoEmergency")
         timer.cancel()
         updateUI(false)
-        //show No emergency
     }
 
     private fun showEmergency() {
@@ -116,7 +113,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }, 0L, 5000L)
-        //show emergency layout
     }
 
     private fun updateUI(isEmergency: Boolean) {

@@ -5,5 +5,5 @@
     <string name="emergency">Emergency</string>
     <string name="no_emergency">No Emergency</string>
     <string name="_18_e_60"><![CDATA[18<e<60]]></string>
-    <string name="_50_e"><![CDATA[50<e]]></string>
+    <string name="_60_e"><![CDATA[60<e]]></string>
 </resources>

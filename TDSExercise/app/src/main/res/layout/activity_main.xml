@@ -84,7 +84,7 @@
                     android:gravity="center_horizontal"
                     android:text="25"
                     android:textColor="@color/yellow"
-                    android:textSize="18sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -95,7 +95,7 @@
                     android:gravity="center_horizontal"
                     android:text="@string/e_18"
                     android:textColor="@color/yellow"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -117,7 +117,7 @@
                     android:gravity="center_horizontal"
                     android:text="30"
                     android:textColor="@color/blue"
-                    android:textSize="18sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -128,7 +128,7 @@
                     android:gravity="center_horizontal"
                     android:text="@string/_18_e_60"
                     android:textColor="@color/blue"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                     android:gravity="center_horizontal"
                     android:text="25"
                     android:textColor="@color/red"
-                    android:textSize="18sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -159,9 +159,9 @@
                     android:layout_gravity="top"
                     android:layout_marginTop="5dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/_50_e"
+                    android:text="@string/_60_e"
                     android:textColor="@color/red"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
