@@ -1,20 +1,21 @@
 package com.example.tdsexercise.ui.main.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.tdsexercise.R
 import com.example.tdsexercise.data.api.ApiHelper
 import com.example.tdsexercise.data.api.RetrofitBuilder
 import com.example.tdsexercise.data.model.Employee
+import com.example.tdsexercise.databinding.ActivityMainBinding
 import com.example.tdsexercise.ui.base.ViewModelFactory
+import com.example.tdsexercise.ui.main.viewmodel.EmployeeDataObservable
 import com.example.tdsexercise.ui.main.viewmodel.MainViewModel
 import com.example.tdsexercise.util.Status
-import kotlinx.android.synthetic.main.activity_main.*
 import rx.Observable
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -22,10 +23,15 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private var timer: Timer = Timer()
+    private lateinit var binding: ActivityMainBinding
+    private var dataObservable = EmployeeDataObservable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.employeeDataObservable = dataObservable
+        dataObservable.notifyChange()
         initialiseViewModel()
         startTimer()
     }
@@ -65,23 +71,25 @@ class MainActivity : AppCompatActivity() {
         val total = users.size
         Log.d("Test", "$lessThan18-$lessBet18And60-$moreThan60-$total")
         setCountUI(
-            lessThan18 = lessThan18.toString(),
-            between18to60 = lessBet18And60.toString(),
-            moreThan60 = moreThan60.toString(),
-            total = total.toString()
+            lessThan18 = lessThan18,
+            between18to60 = lessBet18And60,
+            moreThan60 = moreThan60,
+            total = total
         )
     }
 
     private fun setCountUI(
-        lessThan18: String,
-        between18to60: String,
-        moreThan60: String,
-        total: String
+        lessThan18: Int,
+        between18to60: Int,
+        moreThan60: Int,
+        total: Int
     ) {
-        tvTotalCount.text = total
-        tvLessThanEighteen.text = lessThan18
-        tvBetweenEighteenToSixty.text = between18to60
-        tvMoreThanSixty.text = moreThan60
+        dataObservable.setLessThan18(lessThan18)
+        dataObservable.setBetween18to60(between18to60)
+        dataObservable.setMoreThan60(moreThan60)
+        dataObservable.setTotal(total)
+        dataObservable.setEmergency(true)
+        dataObservable.notifyChange()
     }
 
     private fun startTimer() {
@@ -100,11 +108,9 @@ class MainActivity : AppCompatActivity() {
     private fun showNoEmergency() {
         Log.d("Test", "NoEmergency")
         timer.cancel()
-        updateUI(false)
     }
 
     private fun showEmergency() {
-        updateUI(true)
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 runOnUiThread {
@@ -113,22 +119,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }, 0L, 5000L)
-    }
-
-    private fun updateUI(isEmergency: Boolean) {
-        if (isEmergency) {
-            tvTitle.text = getString(R.string.emergency)
-            tvTitle.setTextColor(getColor(R.color.red))
-            tvTotalCount.visibility = View.VISIBLE
-            tvTotal.visibility = View.VISIBLE
-            clLayoutBottom.visibility = View.VISIBLE
-        } else {
-            tvTitle.text = getString(R.string.no_emergency)
-            tvTitle.setTextColor(getColor(R.color.green))
-            tvTotalCount.visibility = View.GONE
-            tvTotal.visibility = View.GONE
-            clLayoutBottom.visibility = View.GONE
-        }
     }
 
     private fun getRandomInterval(): Long {
