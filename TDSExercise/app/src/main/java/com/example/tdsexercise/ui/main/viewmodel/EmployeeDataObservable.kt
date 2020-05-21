@@ -72,13 +72,5 @@ class EmployeeDataObservable : BaseObservable() {
         }
 
     }
-
-    fun updatesEvents(emergency: Boolean) {
-        if (emergency) {
-            tvTotalVisibility.value = View.VISIBLE
-        }
-
-    }
-
-
+    
 }
